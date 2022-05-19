@@ -1,0 +1,104 @@
+#include<stdio.h>
+int main(){
+	int n,r,i,j,k,c1;
+	int alloc[10][10],max[10][10],need[10][10],avali[10],c,status[10];
+	int flag = 1;
+	printf("enter no. of processors:");
+	scanf("%d",&n);
+	printf("enter no.of resources:");
+	scanf("%d",&r);
+	printf("\nenter the values of avaliable:");
+	for(i=0;i<r;i++)
+		scanf("%d",&avali[i]);
+	printf("\nenter the values of max:");
+	for(i=0;i<n;i++)
+		for(j=0;j<r;j++)
+			scanf("%d",&max[i][j]);
+	printf("\nenter the values of alloc:");
+	for(i=0;i<n;i++)
+        for(j=0;j<r;j++)
+             scanf("%d",&alloc[i][j]);
+	for(i=0;i<n;i++)
+		for(j=0;j<r;j++)
+			need[i][j] = max[i][j] - alloc[i][j];
+	for(i=0;i<n;i++)
+		status[i] = 0;
+	while(flag){
+		flag = 0;
+		for(i=0;i<n;i++){
+			c = 0;
+			for(j=0;j<r;j++){
+				if(status[i] == 0 && avali[j] >= need[i][j]){
+					c++;
+					if(c==r){
+						for(k=0;k<r;k++)
+							avali[k] = avali[k] +alloc[i][k];
+					
+						status[i] = 1;
+						printf("\nP%d ",i);
+						flag =1;
+                    }
+			    }
+			}
+		}
+	}
+	c1 =0;
+	for(i=0;i<n;i++){
+		if(status[i] == 1)
+			c1++;
+	}
+	if(c1 == n)
+		printf("Process Safe");
+	else
+		printf("process not safe");
+    }
+    
+    output:
+
+enter no. of processors:5
+enter no.of resources:3
+
+enter the values of avaliable:3
+3
+2
+
+enter the values of max:7
+5
+3
+3
+2
+2
+9
+0
+2
+2
+2
+2
+4
+3
+3
+
+enter the values of alloc:0
+1
+0
+3
+0
+2
+3
+0
+2
+2
+1
+1
+0
+0
+2
+
+P1
+P2
+P3
+P4
+P0 Process Safe
+
+                                                                                                                            38,1-4        Bot
+
