@@ -1,0 +1,41 @@
+#include<stdio.h>
+#include<fcntl.h>
+#include<dirent.h>
+void main(){
+	char d[10];
+	int c,op;
+	DIR*e;
+	struct dirent *sd;
+	printf("\n 1-Create \n 2-remove \n 3-read \nenter your choice:\n");
+	scanf("%d",&op);
+	switch(op){
+		case 1:printf("enter dir name: \n");
+				scanf("%s",&d);
+				c = mkdir(d,777);
+				if(c == 1)
+					printf("dir is not created");
+				else
+					printf("dir is created");
+				break;
+		case 2:printf("enter directory:\n");
+				scanf("%s",&d);
+				c = rmdir(d);
+				if(c==1)
+					printf("dir is not removed");
+				else
+					printf("dir is removed");
+				break;
+		case 3:printf("enter dir name:");
+				scanf("%s",&d);
+				e = opendir(d);
+				if(e == NULL)
+					printf("dir  does not exist");
+				else{
+					printf("\ndir exist");
+					while((sd = readdir(e)) != NULL)
+						printf("%s \t",sd->d_name);
+					clredir(e);
+					break;
+				}
+		}
+}
